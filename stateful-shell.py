@@ -75,7 +75,13 @@ async def main():
     # Example: maintain state across multiple tool calls
 
     prompt = "Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents."
-    prompt = 'list the contents of the user home directury'    
+    prompt = 'list the contents of the user home directury' 
+    prompt = """
+        run /usr/local/cellar/open-adventure/1.20/bin/advent,
+        when the program has started it prints a message and accpts input,
+        enter n, and enter quit, and enter y
+        provide all levels dignostics   
+    """
     # result = await Runner.run(agent, "Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents.")
     # print(result.final_output)
 
