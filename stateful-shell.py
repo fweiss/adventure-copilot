@@ -73,12 +73,14 @@ agent = Agent(
 
 async def main():
     # Example: maintain state across multiple tool calls
-            
+
+    prompt = "Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents."
+    prompt = 'list the contents of the user home directury'    
     # result = await Runner.run(agent, "Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents.")
     # print(result.final_output)
 
     # stream = Runner.run_streamed(agent, input="List files, then print Python version.")
-    stream = Runner.run_streamed(agent, input="Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents.")
+    stream = Runner.run_streamed(agent, input=prompt)
     async for event in stream.stream_events():
         if event.type == "raw_response_event" and isinstance(event.data, ResponseTextDeltaEvent):
             print(event.data.delta, end="", flush=True)
