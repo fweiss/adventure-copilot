@@ -21,7 +21,7 @@ class BashSession:
         marker = f"__DONE__{uuid.uuid4().hex}__"
         self.p.stdin.write(cmd.rstrip() + f"\necho {marker} $?\n")
         self.p.stdin.flush()
-        print("sent to shell {}", cmd)
+        print("sent to shell", cmd)
 
         out_lines, deadline = [], time.monotonic() + timeout
         fd = self.p.stdout.fileno()
@@ -74,11 +74,11 @@ agent = Agent(
 async def main():
     # Example: maintain state across multiple tool calls
 
-    prompt = "Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents."
-    prompt = 'list the contents of the user home directury' 
+    testprompt = "Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents."
+    # prompt = 'list the contents of the user home directury' 
     prompt = """
         run /usr/local/cellar/open-adventure/1.20/bin/advent,
-        when the program has started it prints a message and accpts input,
+        when the program has started it prints a message and accepts input,
         enter n, and enter quit, and enter y
         provide all levels dignostics   
     """

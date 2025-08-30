@@ -33,6 +33,8 @@ AppStore ain't so good.
 
 the session doesn't support fully interactive applications directl
 
+this does work: ``echo "n\nquit\ny\n" | ./advent``
+
 ## Links and references
 openAI agent tutorial
 https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf
