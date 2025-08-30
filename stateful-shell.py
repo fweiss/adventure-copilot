@@ -2,7 +2,8 @@
 
 # pip install openai-agents
 import asyncio, subprocess, uuid, time, select
-from agents import Agent, Runner, function_tool
+from agents import Agent, Runner, function_tool, ItemHelpers
+from openai.types.responses import ResponseTextDeltaEvent
 
 class BashSession:
     def __init__(self, bash="/bin/bash"):
@@ -20,6 +21,7 @@ class BashSession:
         marker = f"__DONE__{uuid.uuid4().hex}__"
         self.p.stdin.write(cmd.rstrip() + f"\necho {marker} $?\n")
         self.p.stdin.flush()
+        print("sent to shell {}", cmd)
 
         out_lines, deadline = [], time.monotonic() + timeout
         fd = self.p.stdout.fileno()
@@ -71,8 +73,27 @@ agent = Agent(
 
 async def main():
     # Example: maintain state across multiple tool calls
-    result = await Runner.run(agent, "Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents.")
-    print(result.final_output)
+            
+    # result = await Runner.run(agent, "Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents.")
+    # print(result.final_output)
+
+    # stream = Runner.run_streamed(agent, input="List files, then print Python version.")
+    stream = Runner.run_streamed(agent, input="Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents.")
+    async for event in stream.stream_events():
+        if event.type == "raw_response_event" and isinstance(event.data, ResponseTextDeltaEvent):
+            print(event.data.delta, end="", flush=True)
+        elif event.type == "run_item_stream_event" and event.item.type == "tool_call_output_item":
+            print("\n[tool output]\n" + event.item.output)
+       # When items are generated, print them
+        elif event.type == "run_item_stream_event":
+            if event.item.type == "tool_call_item":
+                print("-- Tool was called")
+            elif event.item.type == "tool_call_output_item":
+                print(f"-- Tool output: {event.item.output}")
+            elif event.item.type == "message_output_item":
+                print(f"-- Message output:\n {ItemHelpers.text_message_output(event.item)}")
+            else:
+                pass  # Ignore other event types
 
 if __name__ == "__main__":
     try:

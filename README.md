@@ -24,6 +24,15 @@ needs ``export OPENAI_API_KEY="sk-..."``
 > The prompt sent to the subshell is ``Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents.``
 > It does what is says!
 
+## Colosal Cave Adventure
+brew install open-adventure
+
+``/usr/local/cellar/open-adventure/1.20/bin/advent``
+
+AppStore ain't so good.
+
 ## Links and references
 openAI agent tutorial
 https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf
+
+Collosal Cave Adventure - on the AppStore
