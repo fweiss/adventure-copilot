@@ -52,7 +52,7 @@ def get_game() -> GameSession:
     global _game
     if _game is None:
         _game = GameSession(
-            cmd=["./your_game_binary"],          # e.g., "./adventure"
+            cmd=["/usr/local/cellar/open-adventure/1.20/bin/advent"],          # e.g., "./adventure"
             prompt_regex=r"\n?>\s*$",            # e.g., lines ending with ">"
             timeout=6.0
         )
@@ -64,9 +64,11 @@ def game_io(command: str) -> dict:
     Sends a command to the game and returns the resulting text block.
     Return shape is a dict to stay friendly with tool schemas.
     """
+    print("send: ",  command)
     session = get_game()
     text = session.send(command)
     # Safety: truncate huge blobs
     if len(text) > 20000:
         text = text[:20000] + "\n...[truncated]..."
+    print("reply:" , text)
     return {"output": text}

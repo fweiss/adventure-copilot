@@ -8,6 +8,7 @@ client = OpenAI()
 tools = [
     {
         "type": "function",
+        "name": "game",
         "function": {
             "name": "game_io",
             "description": "Send one command to the text adventure and get the resulting screen.",
@@ -31,7 +32,7 @@ Stop if the game ends or if you're stuck and need human input.
 """
 
 # 2) Start the session by reading the game's opening screen
-opening = game_io("")["output"]
+opening = game_io("n")["output"] # skip instructions
 
 messages = [
     {"role": "system", "content": system_instructions},
@@ -45,7 +46,7 @@ for _ in range(50):  # cap steps
         input=messages,
         tools=tools,
         tool_choice="auto",         # let the model decide when to call game_io
-        temperature=0.2,
+        # temperature=0.2,          # unsupported parameter
     )
 
     msg = resp.output[0] if hasattr(resp, "output") else resp  # SDKs differ; adjust as needed
@@ -76,4 +77,3 @@ for _ in range(50):  # cap steps
 
     # Also append the assistant’s tool call message so the model can continue the chain
     messages.append({"role": "assistant", "content": msg.dict() if hasattr(msg, "dict") else str(msg)})
-    
