@@ -21,7 +21,7 @@ class AdventSession:
         self.proc = pexpect.spawn("/usr/local/cellar/open-adventure/1.20/bin/advent", encoding="utf-8", timeout=10)
         self.repl = REPLWrapper(self.proc, orig_prompt="> ", prompt_change=None, continuation_prompt="... ")
         # Small sanity check
-        _ = self.repl.run_command("process.version")
+        # _ = self.repl.run_command("process.version")
 
     def stop(self) -> None:
         if self.proc is not None:
@@ -98,13 +98,15 @@ def build_agent() -> Agent:
         name="Node-REPL Agent",
         instructions=(
             "You can execute game command inside a persistent adventure REPL.\n"
-            "- start the game with the node_eval tool"
-            "- echo the output of the node_eval tool"
+            "- start the game with the node_reset tool"
+            "- when the game starts and asks `Would you like instructions`, answer 'y'"
+            # "- start the game with the node_eval tool"
+            # "- echo the output of the node_eval tool"
             "- send 'help' to node_eval to understand how to play the game"
             "- pass a user-input command to the game"
             "- use the navigation commands to go to different rooms\n"
             "- If evaluation stalls or the REPL looks broken, call node_reset.\n"
-            "- remember the list of navigation command needed to get to a particule room"
+            "- remember the list of navigation commands needed to get to a particule room"
         ),
         tools=[node_eval, node_reset],
         # You can set a specific OpenAI model via `model=...` if needed.

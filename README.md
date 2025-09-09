@@ -35,8 +35,14 @@ the session doesn't support fully interactive applications directl
 
 this does work: ``echo "n\nquit\ny\n" | ./advent``
 
+## Issues
+To run ``pexpect_pyshell.py``, need pre release agents as of Spet 2025.
+Install ``pip install --upgrade --pre openai``
+
 ## Links and references
 openAI agent tutorial
 https://cdn.openai.com/business-guides-and-resources/a-practical-guide-to-building-agents.pdf
 
 Collosal Cave Adventure - on the AppStore
+
+https://openai.github.io/openai-agents-python/
