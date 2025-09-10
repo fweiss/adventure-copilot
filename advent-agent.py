@@ -43,14 +43,14 @@ class AdventSession:
 
     def eval(self, code: str) -> str:
         """
-        Evaluate JavaScript in the Node REPL and return the REPL's textual output.
+        Evaluate command in the Game REPL and return the REPL's textual output.
         """
         self.ensure_running()
         # REPLWrapper.run_command returns the text printed between prompts.
         # Node echoes results; errors also appear here.
         print("=====send: ", code)
         out = self.repl.run_command(code, timeout=15)
-        print("=====reply: ", out.strip())
+        # print("=====reply: ", out.strip())
         return out.strip()
 
 
@@ -61,7 +61,7 @@ ADVENT = AdventSession()
 # ---------- Agent tools ----------
 
 @function_tool
-def node_reset(ctx: RunContextWrapper[None]) -> str:
+def game_reset(ctx: RunContextWrapper[None]) -> str:
     """
     Restart the Node.js REPL subprocess. Use if the session gets into a bad state
     (e.g., infinite loop) or to clear context.
@@ -69,15 +69,15 @@ def node_reset(ctx: RunContextWrapper[None]) -> str:
     try:
         ADVENT.stop()
         ADVENT.start()
-        return "Node REPL restarted."
+        return "Game REPL restarted."
     except Exception as e:
-        return f"Failed to restart Node REPL: {e!r}"
+        return f"Failed to restart Game REPL: {e!r}"
 
 
 @function_tool
-def node_eval(ctx: RunContextWrapper[None], code: str) -> str:
+def game_eval(ctx: RunContextWrapper[None], code: str) -> str:
     """
-    Run JavaScript in the Node REPL and return the output as text.
+    Run command in the Game REPL and return the output as text.
 
     Args:
         code: JavaScript source to evaluate (single or multi-line).
@@ -95,20 +95,20 @@ def node_eval(ctx: RunContextWrapper[None], code: str) -> str:
 
 def build_agent() -> Agent:
     return Agent(
-        name="Node-REPL Agent",
+        name="Game-REPL Agent",
         instructions=(
-            "You can execute game command inside a persistent adventure REPL.\n"
-            "- start the game with the node_reset tool"
-            "- when the game starts and asks `Would you like instructions`, answer 'y'"
+            "You can execute game commands inside a persistent game REPL.\n"
+            "At the beginning start the game with the game_reset tool.\n"
+            "When the game starts and asks `Would you like instructions`, answer 'y'\n"
             # "- start the game with the node_eval tool"
             # "- echo the output of the node_eval tool"
-            "- send 'help' to node_eval to understand how to play the game"
+            "- send 'help' to game_eval to understand how to play the game"
             "- pass a user-input command to the game"
             "- use the navigation commands to go to different rooms\n"
-            "- If evaluation stalls or the REPL looks broken, call node_reset.\n"
+            "- If evaluation stalls or the REPL looks broken, call game_reset.\n"
             "- remember the list of navigation commands needed to get to a particule room"
         ),
-        tools=[node_eval, node_reset],
+        tools=[game_eval, game_reset],
         # You can set a specific OpenAI model via `model=...` if needed.
     )
 
