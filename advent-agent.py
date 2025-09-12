@@ -41,16 +41,12 @@ class AdventSession:
             self.stop()
             self.start()
 
-    def eval(self, code: str) -> str:
+    def eval(self, command: str) -> str:
         """
-        Evaluate command in the Game REPL and return the REPL's textual output.
+        Send the command to the game and return the response
         """
         self.ensure_running()
-        # REPLWrapper.run_command returns the text printed between prompts.
-        # Node echoes results; errors also appear here.
-        print("=====send: ", code)
-        out = self.repl.run_command(code, timeout=15)
-        # print("=====reply: ", out.strip())
+        out = self.repl.run_command(command, timeout=15)
         return out.strip()
 
 
@@ -96,6 +92,7 @@ def game_eval(ctx: RunContextWrapper[None], code: str) -> str:
 def build_agent() -> Agent:
     return Agent(
         name="Game-REPL Agent",
+        model="gpt-5",
         instructions=(
             "You can execute game commands inside a persistent game REPL.\n"
             "At the beginning start the game with the game_reset tool.\n"
