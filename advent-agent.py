@@ -18,7 +18,8 @@ class AdventSession:
         # Start a fresh Node REPL
         # - 'node' uses '> ' as the prompt and '... ' for multiline continuation
         # - We don't change the prompt (prompt_change=None)
-        self.proc = pexpect.spawn("/usr/local/cellar/open-adventure/1.20/bin/advent", encoding="utf-8", timeout=10)
+        game = "/usr/local/cellar/open-adventure/1.20/bin/advent"
+        self.proc = pexpect.spawn(game, encoding="utf-8", timeout=10)
         self.repl = REPLWrapper(self.proc, orig_prompt="> ", prompt_change=None, continuation_prompt="... ")
         # Small sanity check
         # _ = self.repl.run_command("process.version")
