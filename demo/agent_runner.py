@@ -15,7 +15,10 @@ tools = [
             "parameters": {
                 "type": "object",
                 "properties": {
-                    "command": {"type": "string", "description": "A single game command like 'look', 'north', 'get lamp'."}
+                    "command": {
+                        "type": "string",
+                        "description": "A single game command like 'look', 'north', 'get lamp'."
+                    }
                 },
                 "required": ["command"]
             },
@@ -32,7 +35,7 @@ Stop if the game ends or if you're stuck and need human input.
 """
 
 # 2) Start the session by reading the game's opening screen
-opening = game_io("n")["output"] # skip instructions
+opening = game_io("y")["output"] # skip instructions
 
 messages = [
     {"role": "system", "content": system_instructions},
@@ -42,10 +45,10 @@ messages = [
 # 3) Response loop (tool calling)
 for _ in range(50):  # cap steps
     resp = client.responses.create(
-        model="gpt-5",              # or another tool-capable model
+        model="gpt-4o-mini",              # or another tool-capable model
         input=messages,
         tools=tools,
-        tool_choice="auto",         # let the model decide when to call game_io
+        tool_choice="required",         # let the model decide when to call game_io
         # temperature=0.2,          # unsupported parameter
     )
 

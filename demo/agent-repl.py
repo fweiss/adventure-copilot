@@ -11,7 +11,7 @@ def _key(ctx: RunContextWrapper[Any]) -> str:
     return getattr(ctx, "session_id", "default")
 
 @function_tool
-def repl_start(ctx: RunContextWrapper[Any], cmd: str = "python3 -q", cwd: str | None = None, timeout: float = 3.0) -> str:
+def repl_start(ctx: RunContextWrapper[Any], cmd: str = "/usr/local/cellar/open-adventure/1.20/bin/advent", cwd: str | None = None, timeout: float = 3.0) -> str:
     """
     Start (or restart) a TTY-backed REPL process and remember it for this session.
 
@@ -103,7 +103,7 @@ async def main():
 
     print("Starting python REPL...")
     await Runner.run(agent, "Start a Python REPL.", session=session)
-    out = await Runner.run(agent, "Run: print(2+2) and show only the number.", session=session)
+    out = await Runner.run(agent, "Run: print(3+2) and show only the number.", session=session)
     print(out.final_output)
 
     print("Stopping REPL...")
