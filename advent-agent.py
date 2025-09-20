@@ -115,6 +115,7 @@ async def main() -> None:
     ADVENT.start()
     agent = build_agent()
     # Quick interactive loop in your terminal
+    print("Your copilot is ready")
     await run_demo_loop(agent)
 
 if __name__ == "__main__":
