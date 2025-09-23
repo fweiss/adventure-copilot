@@ -1,11 +1,13 @@
 import asyncio
 from dataclasses import dataclass
 from typing import Optional
+# customized
+from loop import run_demo_loop
 
 import pexpect
 from pexpect.replwrap import REPLWrapper
 
-from agents import Agent, Runner, RunContextWrapper, function_tool, run_demo_loop
+from agents import Agent, Runner, RunContextWrapper, function_tool #, run_demo_loop
 
 # ---------- Node REPL manager (pexpect) ----------
 

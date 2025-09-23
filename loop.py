@@ -4,13 +4,15 @@ from typing import Any
 
 from openai.types.responses.response_text_delta_event import ResponseTextDeltaEvent
 
-from .agent import Agent
-from .items import TResponseInputItem
-from .result import RunResultBase
-from .run import Runner
-from .run_context import TContext
-from .stream_events import AgentUpdatedStreamEvent, RawResponsesStreamEvent, RunItemStreamEvent
+# from .agent import Agent
+# from .items import TResponseInputItem
+# from .result import RunResultBase
+# from .run import Runner
+# from .run_context import TContext
+# from .stream_events import AgentUpdatedStreamEvent, RawResponsesStreamEvent, RunItemStreamEvent
 
+from agents import Agent, Runner, TResponseInputItem
+from agents import AgentUpdatedStreamEvent, RawResponsesStreamEvent, RunItemStreamEvent
 
 async def run_demo_loop(
     agent: Agent[Any], *, stream: bool = True, context: TContext | None = None
