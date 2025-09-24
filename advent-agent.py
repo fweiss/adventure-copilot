@@ -95,7 +95,7 @@ def game_eval(ctx: RunContextWrapper[None], code: str) -> str:
 def build_agent() -> Agent:
     return Agent(
         name="Game-REPL Agent",
-        model="gpt-5",
+        model="gpt-4o",
         instructions=(
             "You can execute game commands inside a persistent game REPL.\n"
             "At the beginning start the game with the game_reset tool.\n"
