@@ -12,6 +12,8 @@ from openai.types.responses.response_text_delta_event import ResponseTextDeltaEv
 # from .stream_events import AgentUpdatedStreamEvent, RawResponsesStreamEvent, RunItemStreamEvent
 
 from agents import Agent, Runner, TResponseInputItem
+from agents import TContext
+from agents.result import RunResultBase
 from agents import AgentUpdatedStreamEvent, RawResponsesStreamEvent, RunItemStreamEvent
 
 async def run_demo_loop(
