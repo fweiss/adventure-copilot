@@ -33,9 +33,11 @@ async def run_demo_loop(
 
     current_agent = agent
     input_items: list[TResponseInputItem] = []
+    total_tokens = 0
     while True:
         try:
-            user_input = input(" > ")
+            prompt = f"[{total_tokens}] >"
+            user_input = input(prompt)
         except (EOFError, KeyboardInterrupt):
             print()
             break
@@ -68,3 +70,4 @@ async def run_demo_loop(
 
         current_agent = result.last_agent
         input_items = result.to_input_list()
+        total_tokens = result.context_wrapper.usage.total_tokens
