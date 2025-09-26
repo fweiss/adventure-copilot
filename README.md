@@ -1,3 +1,14 @@
+A copilot to assist in playing the command-line Collosal Caves Adventure game
+
+## Background
+Back in the early 1980's I first played Collosal Caves Adventure
+on the company's time sharing system. In order to become adept
+I took some large line printer sheets and mapped out the cave.
+I had this idea to build a front end or wrapper for the command-line
+game that could assist in mapping out the cave. I never followed up
+until now. I wanted to see if the OpenAI Agent SDK could provide
+the solution I had envisioned.
+
 ## Outline
 an agent:
 - takes inputs
@@ -9,7 +20,7 @@ it can use:
 - guardrails
 - hooks
 
-## try it with cahtgpt5:
+## try it with chatgpt5:
 ```
 write a simple agent in python that creates bash shel as a subtask sends commands to it and reeives information from it
 ```
