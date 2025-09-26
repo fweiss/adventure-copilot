@@ -1,7 +1,10 @@
-A copilot to assist in playing the command-line Collosal Caves Adventure game
+A copilot to assist in playing the command-line Colossal Cave Adventure game
+> You are standing at the end of a road before a small brick building.
+> Around you is a forest.  A small stream flows out of the building and
+> down a gully.
 
 ## Background
-Back in the early 1980's I first played Collosal Caves Adventure
+Back in the early 1980's I first played Colossal Cave Adventure
 on the company's time sharing system. In order to become adept
 I took some large line printer sheets and mapped out the cave.
 I had this idea to build a front end or wrapper for the command-line
@@ -35,7 +38,7 @@ needs ``export OPENAI_API_KEY="sk-..."``
 > The prompt sent to the subshell is ``Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents.``
 > It does what is says!
 
-## Colosal Cave Adventure
+## Colossal Cave Adventure
 brew install open-adventure
 
 ``/usr/local/cellar/open-adventure/1.20/bin/advent``
