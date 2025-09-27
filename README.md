@@ -12,6 +12,23 @@ game that could assist in mapping out the cave. I never followed up
 until now. I wanted to see if the OpenAI Agent SDK could provide
 the solution I had envisioned.
 
+## Project setup
+Do the followin before you run the app:
+### Python setup
+This is a python project. Do the needful:
+```
+python -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+```
+
+### OpenAI API key
+You will need to get an [API key](https://platform.openai.com/api-keys) and put it in the environment. The file ``key`` is gitignored for this purpose. Put the API key in the  file as follows,
+```
+export OPENAI_API_KEY=<your API key>
+```
+and then run ``source key`` in import it into your environment.
+
 ## Outline
 an agent:
 - takes inputs
