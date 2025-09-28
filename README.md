@@ -12,8 +12,20 @@ game that could assist in mapping out the cave. I never followed up
 until now. I wanted to see if the OpenAI Agent SDK could provide
 the solution I had envisioned.
 
-## Project setup
-Do the followin before you run the app:
+
+## Project setup - Mac
+Do the following before you run the app.
+
+## Colossal Cave Adventure
+There are many versions. The following was closest to the original one from the 1980's:
+```
+brew install open-adventure
+```
+The installation directory is:
+``/usr/local/cellar/open-adventure/1.20/bin/advent``
+
+> The version from the AppStore ain't so good.
+
 ### Python setup
 This is a python project. Do the needful:
 ```
@@ -39,36 +51,6 @@ it can use:
 - tools
 - guardrails
 - hooks
-
-## try it with chatgpt5:
-```
-write a simple agent in python that creates bash shel as a subtask sends commands to it and reeives information from it
-```
-This was saved as ``simple.py``
-now added:
-```
-using the openai agent sdk, sned the output of the llm to the subprocess and send the output of the subprocess to the llm
-```
-needs ``pip install --upgrade openai-agents``
-needs ``export OPENAI_API_KEY="sk-..."``
-
-> The prompt sent to the subshell is ``Create /tmp/agents_demo, cd there, make hello.txt with 'hi', then show its contents.``
-> It does what is says!
-
-## Colossal Cave Adventure
-brew install open-adventure
-
-``/usr/local/cellar/open-adventure/1.20/bin/advent``
-
-AppStore ain't so good.
-
-the session doesn't support fully interactive applications directl
-
-this does work: ``echo "n\nquit\ny\n" | ./advent``
-
-## Issues
-To run ``pexpect_pyshell.py``, need pre release agents as of Spet 2025.
-Install ``pip install --upgrade --pre openai``
 
 ## Links and references
 openAI agent tutorial
