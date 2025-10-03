@@ -51,17 +51,20 @@ async def run_demo_loop(
         result: RunResultBase
         if stream:
             result = Runner.run_streamed(current_agent, input=input_items, context=context)
-            async for event in result.stream_events():
-                if isinstance(event, RawResponsesStreamEvent):
-                    if isinstance(event.data, ResponseTextDeltaEvent):
-                        print(event.data.delta, end="", flush=True)
-                elif isinstance(event, RunItemStreamEvent):
-                    if event.item.type == "tool_call_item":
-                        print("\n[tool called]", flush=True)
-                    elif event.item.type == "tool_call_output_item":
-                        print(f"\n[tool output: {event.item.output}]", flush=True)
-                elif isinstance(event, AgentUpdatedStreamEvent):
-                    print(f"\n[Agent updated: {event.new_agent.name}]", flush=True)
+            try:
+                async for event in result.stream_events():
+                    if isinstance(event, RawResponsesStreamEvent):
+                        if isinstance(event.data, ResponseTextDeltaEvent):
+                            print(event.data.delta, end="", flush=True)
+                    elif isinstance(event, RunItemStreamEvent):
+                        if event.item.type == "tool_call_item":
+                            print("\n[tool called]", flush=True)
+                        elif event.item.type == "tool_call_output_item":
+                            print(f"\n[tool output: {event.item.output}]", flush=True)
+                    elif isinstance(event, AgentUpdatedStreamEvent):
+                        print(f"\n[Agent updated: {event.new_agent.name}]", flush=True)
+            except Exception as e:
+                return f"event error: {e!r}"
             print()
         else:
             result = await Runner.run(current_agent, input_items, context=context)
